@@ -1,0 +1,500 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EmpVoice | Create Account &amp; Ticket Access</title>
+  <style>
+    :root {
+      --bg-base: #0a0b0d;
+      --bg-surface: #121418;
+      --bg-elevated: #1a1d24;
+      --border: #272b36;
+      --border-hover: #3d4454;
+      --text-primary: #f4f6f8;
+      --text-secondary: #9aa2b1;
+      --accent: #22c55e;
+      --accent-hover: #16a34a;
+      --accent-dim: rgba(34, 197, 94, 0.12);
+      --radius: 10px;
+      --container: 1180px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 11px 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background-color: var(--accent);
+      color: #05140a;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-hover);
+      color: #ffffff;
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      border-color: var(--border-hover);
+      color: var(--text-primary);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--text-primary);
+      background-color: var(--bg-elevated);
+    }
+
+    .btn-sm {
+      padding: 8px 14px;
+      font-size: 0.84rem;
+    }
+
+    /* Topbar */
+    .topbar {
+      background-color: rgba(10, 11, 13, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .brand {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .brand span {
+      color: var(--accent);
+    }
+
+    .nav-list {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 22px;
+    }
+
+    .nav-list a {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+
+    .nav-list a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Auth Layout */
+    .auth-main {
+      min-height: calc(100vh - 134px);
+      display: flex;
+      align-items: stretch;
+    }
+
+    .auth-grid {
+      width: 100%;
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 40px 24px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 40px;
+      align-items: stretch;
+    }
+
+    /* Form Panel */
+    .auth-panel {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .auth-head h1 {
+      font-size: 1.85rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .auth-head p {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      margin-bottom: 24px;
+    }
+
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    input, select {
+      width: 100%;
+      padding: 11px 14px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      color: var(--text-primary);
+      background-color: var(--bg-base);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--accent);
+    }
+
+    .check-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.84rem;
+      font-weight: 400;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+
+    .check-label input[type="checkbox"] {
+      width: auto;
+      accent-color: var(--accent);
+    }
+
+    .inline-link {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .inline-link:hover {
+      text-decoration: underline;
+    }
+
+    .auth-footer-note {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    /* Visual Panel */
+    .auth-visual {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .img-box {
+      display: flex;
+      flex: 1 1 auto;
+      min-height: 260px;
+      width: 100%;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .img-box img {
+      display: block;
+      flex: 1 1 auto;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .visual-caption {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .visual-caption h2 {
+      font-size: 1.35rem;
+      letter-spacing: -0.015em;
+    }
+
+    .visual-caption p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .visual-note {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+
+    .thumb-box {
+      display: flex;
+      width: 56px;
+      height: 40px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .thumb-box img {
+      display: block;
+      flex: 1 1 auto;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--bg-surface);
+      border-top: 1px solid var(--border);
+      padding: 20px 24px;
+    }
+
+    .footer-inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-primary);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .auth-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .auth-visual {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .form-row-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="../index.html" class="brand"><span>EMP</span>VOICE</a>
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-list">
+          <li><a href="../index.html">Overview</a></li>
+          <li><a href="../index.html#portals">Department Portals</a></li>
+          <li><a href="../index.html#workflow">How It Works</a></li>
+          <li><a href="../index.html#about">Standards</a></li>
+          <li><a href="../index.html#contact">Support</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <a href="dashboard.html" class="btn btn-secondary btn-sm">Dashboard</a>
+        <a href="login.html" class="btn btn-primary btn-sm">Login</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="auth-main">
+    <div class="auth-grid">
+      <section class="auth-panel" aria-label="Registration Form">
+        <div class="auth-head">
+          <p class="eyebrow">Staff &amp; Reporter Onboarding</p>
+          <h1>Create your account</h1>
+          <p>Register to submit routed workplace tickets and monitor resolution milestones.</p>
+        </div>
+
+        <form action="login.html" method="get" class="auth-form">
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="first">First Name</label>
+              <input type="text" id="first" name="first" placeholder="Aze I." required>
+            </div>
+            <div class="form-group">
+              <label for="last">Last Name</label>
+              <input type="text" id="last" name="last" placeholder="Denamarca" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Work Email Address</label>
+            <input type="email" id="email" name="email" placeholder="name@company.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="dept">Department Channel</label>
+            <select id="dept" name="dept" required>
+              <option value="" selected disabled>Choose department...</option>
+              <option value="hr">DEPT 01 &mdash; HR &amp; Personnel</option>
+              <option value="ops">DEPT 02 &mdash; Facilities &amp; Safety</option>
+              <option value="exec">DEPT 03 &mdash; Management Feedback</option>
+            </select>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" placeholder="Create password" required>
+            </div>
+            <div class="form-group">
+              <label for="confirm">Confirm Password</label>
+              <input type="password" id="confirm" name="confirm" placeholder="Repeat password" required>
+            </div>
+          </div>
+
+          <label class="check-label">
+            <input type="checkbox" id="terms" name="terms" required>
+            <span>I agree to the <a href="../index.html#about" class="inline-link">Resolution &amp; Governance Standards</a></span>
+          </label>
+
+          <button type="submit" class="btn btn-primary">Create Account</button>
+        </form>
+
+        <div class="auth-footer-note">
+          <span>Already registered? <a href="login.html" class="inline-link">Login</a></span>
+          <a href="../index.html#portals" class="inline-link">Browse Portals</a>
+        </div>
+      </section>
+
+      <section class="auth-visual" aria-label="Account Governance Overview">
+        <div class="img-box">
+          <img src="images/6.jpg" alt="EmpVoice compliance and resolution governance">
+        </div>
+        <div class="visual-caption">
+          <p class="eyebrow">Auditable Workflow</p>
+          <h2>Structured reporting from day one</h2>
+          <p>Every ticket routes to the matching department queue with SLA tracking and optional identity masking.</p>
+          <div class="visual-note">
+            <div class="thumb-box">
+              <img src="images/5.jpg" alt="Confidential intake security standard">
+            </div>
+            <span>Timestamped audit logs keep status updates and reviewer notes transparent.</span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <a href="../index.html" class="brand" style="font-size:1rem; margin-right:10px;"><span>EMP</span>VOICE</a>
+        <span>&copy; 2026 All rights reserved.</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="../index.html">Overview</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="login.html">Staff Login</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
